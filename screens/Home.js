@@ -18,7 +18,7 @@ function Home({ navigation }) {
                 colors={['#E2EAFF', '#FFE7AB']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
-                style={{ height: vw(50), position: 'absolute', left: 0, right: 0, top: 0, zIndex: -1 }}
+                style={{ height: vh(50), position: 'absolute', left: 0, right: 0, top: 0, zIndex: -1 }}
             >
 
             </LinearGradient>
@@ -62,7 +62,7 @@ function Home({ navigation }) {
 
 
                 <View style={[styles.w100, styles.flex1, { borderTopLeftRadius: vw(7.5), borderTopWidth: vw(0.5), borderColor: colorStyle.blue1, borderLeftWidth: 1, }]}>
-                
+
                     <View style={{ margin: vw(5), }}>
                         {suitableJob()}
                     </View>

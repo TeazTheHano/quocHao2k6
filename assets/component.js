@@ -51,6 +51,8 @@ export const searchNav = (header, environmentColor, toggleModal) => {
 
 export const gradientRectangle = () => {
     const date = new Date();
+    const { currentUser } = DATA();
+
     return (
         <View style={[componentStyle.shadowW0H1B1S0]}>
             <LinearGradient
@@ -62,8 +64,8 @@ export const gradientRectangle = () => {
                 <View style={[styles.flexRow, styles.alignItemsCenter, styles.gap4vw]}>
                     <Image source={require('../assets/images/placeholder.jpg')} style={[{ width: vw(17.5), height: vw(17.5), borderRadius: vw(100), borderWidth: vw(0.5), borderColor: colorStyle.blue2 }]} />
                     <View>
-                        <Text style={[componentStyle.Mon12Bold, { fontSize: vw(3.5), color: colorStyle.darkGray }]}>{date.getHours() < 5 ? 'Chào buổi tối' : date.getHours() < 12 ? 'Chào buổi sáng' : date.getHours() < 18 ? 'Chào buổi chiều' : 'Chào buổi tối'}</Text>
-                        <Text style={[componentStyle.Os20Bold, { fontSize: vw(4), color: colorStyle.blue4, }]}>hehehe</Text>
+                        <Text style={[componentStyle.Mon12Bold, { color: colorStyle.darkGray }]}>{date.getHours() < 5 ? 'Chào buổi tối' : date.getHours() < 12 ? 'Chào buổi sáng' : date.getHours() < 18 ? 'Chào buổi chiều' : 'Chào buổi tối'}</Text>
+                        <Text style={[componentStyle.Os20Bold, { color: colorStyle.blue4, }]}>{currentUser.name}</Text>
                     </View>
 
                 </View>
@@ -217,6 +219,9 @@ export const mostCompany = () => {
 
 export const suitableJob = () => {
     let { job } = DATA();
+    let { currentUser } = DATA();
+    let currentUserDisable = currentUser.disable;
+
     const [numberToRender, setNumberToRender] = useState(4);
     const [isPressedAll, setIsPressedAll] = useState(false);
     const [isPressedMore, setIsPressedMore] = useState(false);
@@ -277,7 +282,7 @@ export const suitableJob = () => {
                     <Text style={[componentStyle.Mon12Bold]}>{!isPressedAll ? `Xem tất cả` : `Thu gọn`}</Text>
                 </TouchableOpacity>
             </View>
-            {job.slice(0, numberToRender).map((item, index) => (
+            {job.filter(item => item.acceptDisable.some(val => currentUserDisable.indexOf(val) !== -1)).slice(0, numberToRender).map((item, index) => (
                 <Item key={index} item={item} />
             ))}
             <TouchableOpacity

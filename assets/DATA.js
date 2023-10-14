@@ -1,22 +1,51 @@
 export default DATA = () => {
-    let userData = {
+    let currentUser = {
         id: 'u1',
         name: "Nguyễn Văn A",
+        dob: "01/01/2000",
+        sex: "Nam",
         email: "blaaaaa@gmail.com",
-        password: "123456",
         phone: "0123456789",
         address: "Hà Nội",
         avatar: require('../assets/images/placeholder.jpg'),
         intro: "Tôi là Nguyễn Văn A, tôi đến từ Hà Nội",
         major: "IT",
-        exp: "1 năm",
-        disable: "deaf",
+        exp: [
+            {
+                from: "01/01/2021",
+                to: "01/01/2021",
+                company: "Công ty TNHH ABC",
+            },
+            {
+                from: "01/01/2021",
+                to: "01/01/2021",
+                company: "Công ty TNHH ABC",
+            },
+            {
+                from: "01/01/2021",
+                to: "01/01/2021",
+                company: "Công ty TNHH ABC",
+            },
+        ],
+        disable: ["blaaa",],
         image: [
             require('../assets/images/placeholder.jpg'),
             require('../assets/images/placeholder.jpg'),
             require('../assets/images/placeholder.jpg'),
         ],
+        joinDate: "01/01/2021",
+        education: ['thpt', 'đại học'],
+        wishness: 'bla bla bla',
+        jobSave: ['j3', 'j7'],
+        skill: ['skill1', 'skill2', 'skill3'],
+        isAvailable: true,
+        letCompanyContact: true,
+        jobAttempt: ['j1', 'j2',],
+        followCompany: ['c1', 'c2',],
+        companyViewCount: 2,
+
     }
+
     let company = [
         {
             id: 'c1',
@@ -267,8 +296,7 @@ export default DATA = () => {
             majorJob: "IT",
             expJob: "1 năm",
             acceptDisable: [
-                'deaf',
-                'blind',
+                'eye'
             ],
             imageJob: [
                 require('../assets/images/placeholder.jpg'),
@@ -349,5 +377,5 @@ export default DATA = () => {
             ],
         },
     ]
-    return { company, job }
+    return { company, job, currentUser }
 }

@@ -992,6 +992,33 @@ const styles = StyleSheet.create({
     border1: {
         borderWidth: 1,
     },
+
+    shadowW0H1Black: {
+        shadowColor: 'black',
+        shadowOffset: { width: vw(0), height: vw(1) },
+        shadowOpacity: 0.25,
+    },
+
+    shadowW0H1Color: {
+        shadowOffset: { width: vw(0), height: vw(1) },
+        shadowOpacity: 0.25,
+    },
+
+    shadowW0H05Color: {
+        shadowOffset: { width: vw(0), height: vw(0.5) },
+        shadowOpacity: 1,
+        shadowRadius: vw(0),
+    },
+    topShadowW0H05Color: {
+        shadowOffset: { width: vw(0), height: vw(-0.5) },
+        shadowOpacity: 1,
+        shadowRadius: vw(0),
+    },
+    shadowW0H025Color: {
+        shadowOffset: { width: vw(0), height: vw(0.25) },
+        shadowOpacity: 1,
+        shadowRadius: vw(0),
+    },
 });
 
 export default styles;
