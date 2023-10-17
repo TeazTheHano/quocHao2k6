@@ -8,6 +8,7 @@ import { searchIcon, infoIcon, leftArrow, shareIcon, heartDouble, bookmark, } fr
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from "expo-linear-gradient";
 import DATA from '../assets/DATA.js';
+import { useNavigatio, NavigationContainer } from '@react-navigation/native';
 
 export const searchNav = (header, environmentColor, toggleModal) => {
     const [search, setSearch] = React.useState("");
@@ -17,7 +18,7 @@ export const searchNav = (header, environmentColor, toggleModal) => {
     return (
         <View style={[styles.positionRelative, { zIndex: 10 }]}>
             <View style={[styles.dFlex, styles.flexRow, styles.w100, styles.justifyContentSpaceBetween, styles.gap4vw, styles.alignItemsCenter, { backgroundColor: null, paddingBottom: vw(5), paddingTop: vw(2), paddingHorizontal: vw(6.5), borderBottomRightRadius: vw(5), borderBottomLeftRadius: vw(5) }]}>
-                {header ? <Text style={[componentStyle.anuphanBold, { color: colorStyle.blue1, fontSize: vw(7), }]}>{header}</Text> :
+                {header ? <Text style={[componentStyle.Os20Bold, { color: colorStyle.blue1, fontSize: vw(7), }]}>{header}</Text> :
                     <TouchableOpacity
                         style={[{
                             width: vw(10), height: vw(10), borderRadius: vw(1.5), backgroundColor: null,
@@ -49,6 +50,36 @@ export const searchNav = (header, environmentColor, toggleModal) => {
     );
 }
 
+export const navTopBar = ([w, h], environmentColor, item, fnc) => {
+    const navigation = useNavigation();
+
+    return (
+        <View style={[styles.positionRelative, { zIndex: 10 }]}>
+            <View style={[styles.dFlex, styles.flexRow, styles.w100, styles.justifyContentSpaceBetween, styles.gap4vw, styles.alignItemsCenter, { backgroundColor: null, paddingBottom: vw(5), paddingTop: vw(2), paddingHorizontal: vw(6.5), borderBottomRightRadius: vw(5), borderBottomLeftRadius: vw(5) }]}>
+                <TouchableOpacity
+                    style={[{
+                        padding: vw(2), borderRadius: vw(1.5), backgroundColor: null,
+                    },
+                    styles.alignItemsCenter, styles.justifyContentCenter, styles.flexRow,]}
+
+                    onPress={() => { navigation.goBack() }}>
+                    {leftArrow(w, h)}
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={[{
+                        padding: vw(2), borderRadius: vw(1.5), backgroundColor: null,
+                    },
+                    styles.alignItemsCenter, styles.justifyContentCenter, styles.flexRow,]}
+                    onPress={() => { fnc }}>
+                    {item}
+                </TouchableOpacity>
+            </View>
+            <View style={[styles.w100, styles.h100, styles.positionAbsolute, { zIndex: -1, backgroundColor: environmentColor }]}></View>
+        </View>
+    );
+}
+
 export const gradientRectangle = () => {
     const date = new Date();
     const { currentUser } = DATA();
@@ -74,7 +105,7 @@ export const gradientRectangle = () => {
     )
 }
 
-export const jobNews1 = () => {
+export const jobNews1 = (navigation) => {
     let { job } = DATA();
     const [numberToRender, setNumberToRender] = useState(4);
     const [isPressedAll, setIsPressedAll] = useState(false);
@@ -86,9 +117,11 @@ export const jobNews1 = () => {
     }
     const Item = ({ item }) => {
         const [isBookmarked, setIsBookmarked] = useState(false);
-
+        const navigation = useNavigation();
         return (
-            <View id={item.id} style={[styles.flexRow, styles.gap4vw, styles.borderRadius16, styles.justifyContentSpaceBetween, styles.flex1, componentStyle.shadowW0H1B1S0, { paddingVertical: vw(2.5), borderWidth: vw(0.5), borderColor: colorStyle.blue2, paddingLeft: vw(2.5), paddingRight: vw(5), marginBottom: vw(5), backgroundColor: colorStyle.white }]}>
+            <TouchableOpacity
+                onPress={() => { navigation.navigate('JobDetail', { item: item, bookmarkStatus: isBookmarked }) }}
+                id={item.id} style={[styles.flexRow, styles.gap4vw, styles.borderRadius16, styles.justifyContentSpaceBetween, styles.flex1, componentStyle.shadowW0H1B1S0, { paddingVertical: vw(2.5), borderWidth: vw(0.5), borderColor: colorStyle.blue2, paddingLeft: vw(2.5), paddingRight: vw(5), marginBottom: vw(5), backgroundColor: colorStyle.white }]}>
                 <Image source={item.imageCompany} style={[{ width: vw(35), height: vw(25), borderRadius: vw(2.5) }]} />
                 <View style={[styles.flexRow, styles.justifyContentSpaceBetween, styles.flex1, { gap: vw(2.5) }]}>
                     <View style={[styles.flex1, styles.flexCol, styles.justifyContentSpaceBetween]}>
@@ -114,7 +147,7 @@ export const jobNews1 = () => {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
 
@@ -169,9 +202,9 @@ export const mostCompany = () => {
     }
     const Item = ({ item }) => {
         return (
-            <View style={[styles.flexCol, styles.alignItemsCenter, { backgroundColor: colorStyle.white, borderRadius: vw(2.5), padding: vw(2.5), paddingBottom: vw(4), marginBottom: vw(6) }]}>
+            <View style={[styles.flexCol, styles.alignItemsCenter, styles.justifyContentSpaceBetween, { backgroundColor: colorStyle.white, borderRadius: vw(2.5), padding: vw(2.5), paddingBottom: vw(4), marginBottom: vw(6) }]}>
                 <Image source={item.imageCompany[0]} style={[{ width: vw(35), height: vw(25), borderRadius: vw(2.5) }]} />
-                <Text style={[componentStyle.Os16Bold, { color: colorStyle.blue4 }]}>{item.nameCompany}</Text>
+                <Text style={[componentStyle.Os16Bold, styles.textCenter, { width: vw(35), color: colorStyle.blue4 }]}>{item.nameCompany}</Text>
                 <Text numberOfLines={1} style={[componentStyle.Mon10Bold]}>{item.majorCompany}</Text>
             </View>
         )
@@ -303,6 +336,33 @@ export const suitableJob = () => {
             </TouchableOpacity>
         </View>
     );
+}
+
+export const notiModal = (toggle = false, topLeftNormal, centerBig, centerNormal, actionMessage, fnc, onClose) => {
+    // const [isPressed, setIsPressed] = useState(toggle);
+    if (toggle) {
+        return (
+            <View style={[styles.positionAbsolute, styles.w100vw, styles.h100vh, styles.flexRow, styles.justifyContentCenter, styles.alignItemsCenter, { backgroundColor: 'rgba(0,0,0,0.4)' }]}>
+                <View style={[styles.w90, styles.flexCol, styles.gap2vw, styles.justifyContentCenter, styles.alignItemsCenter, { paddingHorizontal: vw(5), paddingVertical: vw(4), borderRadius: vw(4), backgroundColor: colorStyle.white }]}>
+                    {{ topLeftNormal } ? <Text style={[componentStyle.Mon14Bold, { color: colorStyle.black }]}>{topLeftNormal}</Text> : null}
+                    {{ centerBig } ? <Text style={[componentStyle.Os24Bold, { color: colorStyle.blue4 }]}>{centerBig}</Text> : null}
+                    {{ centerNormal } ? <Text style={[componentStyle.Mon12Reg, { color: colorStyle.black }]}>{centerNormal}</Text> : null}
+                    <View style={[styles.flexRow, styles.justifyContentCenter, styles.gap4vw, { paddingVertical: vw(2.5) }]}>
+                        <TouchableOpacity
+                            onPress={() => { onClose() }}
+                            style={[{ borderWidth: vw(0.5), borderColor: colorStyle.blue1, borderRadius: vw(1.5), paddingVertical: vw(2.5), paddingHorizontal: vw(5) }]}>
+                            <Text style={[componentStyle.Mon14Bold, { color: colorStyle.black }]}>Quay lại</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[{ borderWidth: vw(0.5), borderColor: colorStyle.blue1, borderRadius: vw(1.5), paddingVertical: vw(2.5), paddingHorizontal: vw(5), backgroundColor: colorStyle.blue1 }]}
+                            onPress={() => { fnc() }}>
+                            <Text style={[componentStyle.Mon14Bold, { color: colorStyle.tan1 }]}>{actionMessage}</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View >
+        )
+    }
 }
 
 export const marginBottomForScrollView = () => {

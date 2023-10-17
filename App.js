@@ -10,6 +10,7 @@ import User from './screens/User';
 import Setting from './screens/Setting';
 import Notification from './screens/Notification';
 import NewJob from './screens/NewJob';
+import JobDetail from './screens/JobDetail';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,7 @@ export default function App() {
         <Stack.Screen name="Setting" component={Setting} />
         <Stack.Screen name="Notification" component={Notification} />
         <Stack.Screen name="NewJob" component={NewJob} />
+        <Stack.Screen name="JobDetail" component={JobDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -7,13 +7,13 @@ import componentStyle from "../assets/componentStyleSheet";
 import styles from "../assets/stylesheet";
 import { gradientRectangle, jobNews1, marginBottomForScrollView, mostCompany, searchNav, suitableJob } from "../assets/component";
 import { heartDouble } from "../assets/svgXml";
-
+import { useNavigatio, NavigationContainer } from '@react-navigation/native';
 
 function Home({ navigation }) {
 
     return (
         <SafeAreaView style={[styles.flex1, { backgroundColor: colorStyle.white }]}>
-            <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
+            <StatusBar backgroundColor="transparent" barStyle="dark-content" />
             <LinearGradient
                 colors={['#E2EAFF', '#FFE7AB']}
                 start={{ x: 0, y: 0 }}
@@ -22,7 +22,7 @@ function Home({ navigation }) {
             >
 
             </LinearGradient>
-            {searchNav("", null, () => { })}
+            {searchNav("App Name", null, () => { })}
 
             <ScrollView style={[styles.flex1, styles.flexCol, styles.gap5vw, { backgroundColor: colorStyle.white, paddingTop: vw(5) }]}>
                 <View style={{ paddingHorizontal: vw(5) }}>

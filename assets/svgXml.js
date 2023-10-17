@@ -71,7 +71,7 @@ export const heartDouble = (w, h) => {
     )
 }
 
-export const leftArrow = () => {
+export const leftArrow = (w = '100%', h = '100%') => {
     const xml = `<svg width="100%" height="100%" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_118_911)">
     <path d="M9.785 16.25L16.49 22.955L14.7225 24.7225L5 15L14.7225 5.27747L16.49 7.04497L9.785 13.75L25 13.75L25 16.25L9.785 16.25Z" fill="#3C3C3C"/>
@@ -82,9 +82,9 @@ export const leftArrow = () => {
     </clipPath>
     </defs>
     </svg>
-    `
+    ` 
     return (
-        <SvgXml xml={xml} width="100%" height="100%" />
+        <SvgXml xml={xml} width={w} height={h} />
     );
 }
 
@@ -148,13 +148,49 @@ export const notValid = () => {
     );
 }
 
-export const editable = (w,h) => {
+export const editable = (w, h) => {
     xml = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_33_5381)">
     <path d="M17.849 11.808L17.142 11.101L7.242 21.001H3V16.758L14.313 5.44403L19.97 11.101C20.1575 11.2886 20.2628 11.5429 20.2628 11.808C20.2628 12.0732 20.1575 12.3275 19.97 12.515L12.9 19.586L11.485 18.172L17.849 11.808ZM15.728 9.68703L14.313 8.27303L5 17.586V19.001H6.414L15.728 9.68703ZM18.556 2.61603L21.385 5.44403C21.5725 5.63156 21.6778 5.88586 21.6778 6.15103C21.6778 6.41619 21.5725 6.6705 21.385 6.85803L19.97 8.27303L15.728 4.03003L17.142 2.61603C17.3295 2.42856 17.5838 2.32324 17.849 2.32324C18.1142 2.32324 18.3685 2.42856 18.556 2.61603Z" fill="#3C3C3C"/>
     </g>
     <defs>
     <clipPath id="clip0_33_5381">
+    <rect width="24" height="24" fill="white"/>
+    </clipPath>
+    </defs>
+    </svg>
+    `
+    return (
+        <SvgXml xml={xml} width={w} height={h} />
+    )
+}
+
+export const deletefitler = (w, h) => {
+    xml = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_314_607)">
+    <path d="M9.99999 8.82166L14.125 4.69666L15.3033 5.87499L11.1783 9.99999L15.3033 14.125L14.125 15.3033L9.99999 11.1783L5.87499 15.3033L4.69666 14.125L8.82166 9.99999L4.69666 5.87499L5.87499 4.69666L9.99999 8.82166Z" fill="#E2B647"/>
+    </g>
+    <rect x="0.5" y="0.5" width="19" height="19" rx="5.5" stroke="#E2B647"/>
+    <defs>
+    <clipPath id="clip0_314_607">
+    <rect width="20" height="20" rx="6" fill="white"/>
+    </clipPath>
+    </defs>
+    </svg>
+    `
+
+    return (
+        <SvgXml xml={xml} width={w} height={h} />
+    )
+}
+
+export const clock = (w, h) => {
+    xml = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_314_526)">
+    <path d="M12 22C6.477 22 2 17.523 2 12C2 6.477 6.477 2 12 2C17.523 2 22 6.477 22 12C22 17.523 17.523 22 12 22ZM12 20C14.1217 20 16.1566 19.1571 17.6569 17.6569C19.1571 16.1566 20 14.1217 20 12C20 9.87827 19.1571 7.84344 17.6569 6.34315C16.1566 4.84285 14.1217 4 12 4C9.87827 4 7.84344 4.84285 6.34315 6.34315C4.84285 7.84344 4 9.87827 4 12C4 14.1217 4.84285 16.1566 6.34315 17.6569C7.84344 19.1571 9.87827 20 12 20ZM13 12H17V14H11V7H13V12Z" fill="#3C3C3C"/>
+    </g>
+    <defs>
+    <clipPath id="clip0_314_526">
     <rect width="24" height="24" fill="white"/>
     </clipPath>
     </defs>

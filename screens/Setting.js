@@ -17,7 +17,7 @@ function Setting({ navigation }) {
     const [allowEmailNotification, setAllowEmailNotification] = React.useState(false);
     return (
         <SafeAreaView style={[styles.flex1, { backgroundColor: colorStyle.white }]}>
-            <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
+            <StatusBar   backgroundColor="transparent" barStyle="dark-content" />
 
             <ScrollView style={[styles.flex1, styles.flexCol, styles.w100,]} contentContainerStyle={[styles.alignItemsCenter, styles.gap4vw]}>
                 <LinearGradient
@@ -46,8 +46,8 @@ function Setting({ navigation }) {
                                 <View style={[styles.flexRow, styles.justifyContentSpaceBetween, styles.alignItemsCenter, styles.borderRadius16, styles.shadowW0H05Color, { backgroundColor: colorStyle.blue3, paddingVertical: vw(4), paddingHorizontal: vw(4), shadowColor: colorStyle.blue1 }]}>
                                     <Text style={[componentStyle.Mon14Bold, { color: colorStyle.black }]}>Trạng thái tìm việc</Text>
                                     <Switch
-                                        trackColor={{ false: colorStyle.blue3, true: '#81b0ff' }}
-                                        thumbColor={isAvailable ? colorStyle.blue1 : colorStyle.grey}
+                                        trackColor={{ false: colorStyle.grey, true: '#81b0ff' }}
+                                        thumbColor={isAvailable ? colorStyle.blue1 : colorStyle.darkGray}
                                         ios_backgroundColor={colorStyle.blue3}
                                         onValueChange={() => { setIsAvailable(!isAvailable) }}
                                         value={isAvailable}
@@ -56,8 +56,8 @@ function Setting({ navigation }) {
                                 <View style={[styles.flexRow, styles.justifyContentSpaceBetween, styles.alignItemsCenter, styles.borderRadius16, styles.shadowW0H05Color, { backgroundColor: colorStyle.blue3, paddingVertical: vw(4), paddingHorizontal: vw(4), shadowColor: colorStyle.blue1 }]}>
                                     <Text style={[componentStyle.Mon14Bold, { color: colorStyle.black }]}>Cho phép NTD liên hệ</Text>
                                     <Switch
-                                        trackColor={{ false: colorStyle.blue3, true: '#81b0ff' }}
-                                        thumbColor={isAvailable ? colorStyle.blue1 : colorStyle.grey}
+                                        trackColor={{ false: colorStyle.grey, true: '#81b0ff' }}
+                                        thumbColor={isAvailable ? colorStyle.blue1 : colorStyle.darkGray}
                                         ios_backgroundColor={colorStyle.blue3}
                                         onValueChange={() => { setIsLetCompanyContact(!isLetCompanyContact) }}
                                         value={isLetCompanyContact}
@@ -131,8 +131,8 @@ function Setting({ navigation }) {
                                     onPress={() => { }}>
                                     <Text style={[componentStyle.Mon14Reg, { color: colorStyle.darkGray, paddingVertical: vw(2.5) }]}>Thông báo qua email </Text>
                                     <Switch
-                                        trackColor={{ false: colorStyle.blue3, true: '#81b0ff' }}
-                                        thumbColor={allowEmailNotification ? colorStyle.blue1 : colorStyle.grey}
+                                        trackColor={{ false: colorStyle.grey, true: '#81b0ff' }}
+                                        thumbColor={allowEmailNotification ? colorStyle.blue1 : colorStyle.darkGray}
                                         ios_backgroundColor={colorStyle.blue3}
                                         onValueChange={() => { setAllowEmailNotification(!allowEmailNotification) }}
                                         value={allowEmailNotification}
