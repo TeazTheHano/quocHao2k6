@@ -172,10 +172,10 @@ export const jobNews1 = (navigation) => {
             <TouchableOpacity
                 onPress={() => {
                     if (numberToRender < job.length) {
-                        setNumberToRender(numberToRender + 1);
-                    } else if (numberToRender == job.length) {
+                        setNumberToRender(numberToRender + 3);
+                    } else if (numberToRender <= job.length) {
                         setIsPressedMore(true);
-                        setNumberToRender(numberToRender + 1);
+                        setNumberToRender(numberToRender + 3);
                     } else {
                         setIsPressedMore(false);
                         setNumberToRender(4);
@@ -192,6 +192,7 @@ export const jobNews1 = (navigation) => {
 
 export const mostCompany = () => {
     const { company } = DATA();
+    const navigation = useNavigation();
     const [numberToRender, setNumberToRender] = useState(4);
     const [isPressedAll, setIsPressedAll] = useState(false);
     const [isPressedMore, setIsPressedMore] = useState(false);
@@ -202,11 +203,13 @@ export const mostCompany = () => {
     }
     const Item = ({ item }) => {
         return (
-            <View style={[styles.flexCol, styles.alignItemsCenter, styles.justifyContentSpaceBetween, { backgroundColor: colorStyle.white, borderRadius: vw(2.5), padding: vw(2.5), paddingBottom: vw(4), marginBottom: vw(6) }]}>
+            <TouchableOpacity
+                onPress={() => { navigation.navigate('CompanyDetail', { item: item }) }}
+                style={[styles.flexCol, styles.alignItemsCenter, styles.justifyContentSpaceBetween, { backgroundColor: colorStyle.white, borderRadius: vw(2.5), padding: vw(2.5), paddingBottom: vw(4), marginBottom: vw(6) }]}>
                 <Image source={item.imageCompany[0]} style={[{ width: vw(35), height: vw(25), borderRadius: vw(2.5) }]} />
                 <Text style={[componentStyle.Os16Bold, styles.textCenter, { width: vw(35), color: colorStyle.blue4 }]}>{item.nameCompany}</Text>
                 <Text numberOfLines={1} style={[componentStyle.Mon10Bold]}>{item.majorCompany}</Text>
-            </View>
+            </TouchableOpacity>
         )
     }
 
@@ -233,10 +236,10 @@ export const mostCompany = () => {
             <TouchableOpacity
                 onPress={() => {
                     if (numberToRender < company.length) {
-                        setNumberToRender(numberToRender + 1);
+                        setNumberToRender(numberToRender + 4);
                     } else if (numberToRender == company.length) {
                         setIsPressedMore(true);
-                        setNumberToRender(numberToRender + 1);
+                        setNumberToRender(numberToRender + 4);
                     } else {
                         setIsPressedMore(false);
                         setNumberToRender(4);
@@ -254,7 +257,7 @@ export const suitableJob = () => {
     let { job } = DATA();
     let { currentUser } = DATA();
     let currentUserDisable = currentUser.disable;
-
+    const navigation = useNavigation();
     const [numberToRender, setNumberToRender] = useState(4);
     const [isPressedAll, setIsPressedAll] = useState(false);
     const [isPressedMore, setIsPressedMore] = useState(false);
@@ -267,7 +270,9 @@ export const suitableJob = () => {
         const [isBookmarked, setIsBookmarked] = useState(false);
 
         return (
-            <View id={item.id} style={[styles.flexRow, styles.gap4vw, styles.borderRadius16, styles.justifyContentSpaceBetween, styles.flex1, componentStyle.shadowW0H1B1S0, { paddingVertical: vw(2.5), borderWidth: vw(0.5), borderColor: colorStyle.blue2, paddingLeft: vw(2.5), paddingRight: vw(5), marginBottom: vw(5), backgroundColor: colorStyle.white }]}>
+            <TouchableOpacity
+                onPress={() => { navigation.navigate('JobDetail', { item: item, bookmarkStatus: isBookmarked }) }}
+                id={item.id} style={[styles.flexRow, styles.gap4vw, styles.borderRadius16, styles.justifyContentSpaceBetween, styles.flex1, componentStyle.shadowW0H1B1S0, { paddingVertical: vw(2.5), borderWidth: vw(0.5), borderColor: colorStyle.blue2, paddingLeft: vw(2.5), paddingRight: vw(5), marginBottom: vw(5), backgroundColor: colorStyle.white }]}>
                 <Image source={item.imageCompany} style={[{ width: vw(35), height: vw(25), borderRadius: vw(2.5) }]} />
                 <View style={[styles.flexRow, styles.justifyContentSpaceBetween, styles.flex1, { gap: vw(2.5) }]}>
                     <View style={[styles.flex1, styles.flexCol, styles.justifyContentSpaceBetween]}>
@@ -293,7 +298,7 @@ export const suitableJob = () => {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
 
@@ -321,10 +326,10 @@ export const suitableJob = () => {
             <TouchableOpacity
                 onPress={() => {
                     if (numberToRender < job.length) {
-                        setNumberToRender(numberToRender + 1);
+                        setNumberToRender(numberToRender + 4);
                     } else if (numberToRender == job.length) {
                         setIsPressedMore(true);
-                        setNumberToRender(numberToRender + 1);
+                        setNumberToRender(numberToRender + 4);
                     } else {
                         setIsPressedMore(false);
                         setNumberToRender(4);

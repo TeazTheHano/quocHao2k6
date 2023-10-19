@@ -12,6 +12,7 @@ import User from '../screens/User';
 import Setting from '../screens/Setting';
 import Notification from '../screens/Notification';
 import NewJob from '../screens/NewJob';
+import CompanyDetail from '../screens/companyDetail';
 
 function Tab({ navigation }) {
     const Tab = createBottomTabNavigator();

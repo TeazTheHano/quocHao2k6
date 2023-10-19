@@ -10,6 +10,10 @@ import { editable, heartDouble } from "../assets/svgXml";
 import DATA from "../assets/DATA";
 import { SvgXml } from "react-native-svg";
 
+// import sign out firebase
+import { auth, firestore } from '../firebase'
+import { useNavigation } from "@react-navigation/native";
+
 function Setting({ navigation }) {
     const { currentUser } = DATA();
     const [isAvailable, setIsAvailable] = React.useState(false);
@@ -17,7 +21,7 @@ function Setting({ navigation }) {
     const [allowEmailNotification, setAllowEmailNotification] = React.useState(false);
     return (
         <SafeAreaView style={[styles.flex1, { backgroundColor: colorStyle.white }]}>
-            <StatusBar   backgroundColor="transparent" barStyle="dark-content" />
+            <StatusBar backgroundColor="transparent" barStyle="dark-content" />
 
             <ScrollView style={[styles.flex1, styles.flexCol, styles.w100,]} contentContainerStyle={[styles.alignItemsCenter, styles.gap4vw]}>
                 <LinearGradient
@@ -151,7 +155,15 @@ function Setting({ navigation }) {
                                     <Text style={[componentStyle.Mon14Reg, { color: colorStyle.darkGray, paddingVertical: vw(2.5) }]}>Đánh giá ứng dụng </Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[{ borderBottomWidth: 1, borderColor: colorStyle.grey }]}
-                                    onPress={() => { }}>
+                                    onPress={() => {
+                                        auth.signOut()
+                                            .then(() => {
+                                                navigation.navigate('LogReg');
+                                            })
+                                            .catch((error) => {
+                                                console.log(error);
+                                            });
+                                    }}>
                                     <Text style={[componentStyle.Mon14Reg, { color: colorStyle.darkGray, paddingVertical: vw(2.5) }]}>Đăng xuất </Text>
                                 </TouchableOpacity>
                             </View>

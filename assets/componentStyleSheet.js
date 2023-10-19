@@ -248,6 +248,52 @@ const componentStyle = StyleSheet.create({
         backgroundColor: colorStyle.main2,
     },
 
+    formContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: vw(4),
+        width: '90%',
+        marginLeft: '5%'
+    },
+
+    loginInput: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: vw(2.5),
+        borderRadius: vw(4),
+        paddingHorizontal: vw(5),
+        width: '100%',
+    },
+
+    loginInputText: {
+        fontSize: vw(3.5),
+        lineHeight: vw(4.5),
+        paddingVertical: vw(4),
+        paddingHorizontal: vw(2),
+        width: '100%',
+        height: '100%',
+    },
+
+    submitBtn: {
+        borderWidth: 2,
+        borderRadius: vw(4),
+        width: '90%',
+        marginLeft: '5%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 'auto'
+    },
+
+    submitBtnText: {
+        fontSize: vw(4.5),
+        lineHeight: vw(4.5),
+        paddingVertical: vw(4.5),
+    },
+
 });
 
 export default componentStyle;

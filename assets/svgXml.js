@@ -82,7 +82,7 @@ export const leftArrow = (w = '100%', h = '100%') => {
     </clipPath>
     </defs>
     </svg>
-    ` 
+    `
     return (
         <SvgXml xml={xml} width={w} height={h} />
     );
@@ -198,5 +198,34 @@ export const clock = (w, h) => {
     `
     return (
         <SvgXml xml={xml} width={w} height={h} />
+    )
+}
+
+export const notiBell = (toggle, w, h) => {
+    xml1 = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_47_6920)">
+    <path d="M4 19V18V11.031C4 6.5921 7.58546 3 12 3C16.4145 3 20 6.5921 20 11.031V18V19H4ZM13.118 22C13.0995 22.0207 13.0804 22.0409 13.0607 22.0607C12.7794 22.342 12.3978 22.5 12 22.5C11.6022 22.5 11.2206 22.342 10.9393 22.0607C10.9196 22.0409 10.9005 22.0207 10.882 22H13.118Z" stroke="#3C3C3C" stroke-width="2"/>
+    </g>
+    <defs>
+    <clipPath id="clip0_47_6920">
+    <rect width="24" height="24" fill="white"/>
+    </clipPath>
+    </defs>
+    </svg>
+    `
+    xml2 = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_86_8252)">
+    <path d="M22 20H2V18H3V11.031C3 6.043 7.03 2 12 2C16.97 2 21 6.043 21 11.031V18H22V20ZM9.5 21H14.5C14.5 21.663 14.2366 22.2989 13.7678 22.7678C13.2989 23.2366 12.663 23.5 12 23.5C11.337 23.5 10.7011 23.2366 10.2322 22.7678C9.76339 22.2989 9.5 21.663 9.5 21Z" fill="#E2B647"/>
+    </g>
+    <defs>
+    <clipPath id="clip0_86_8252">
+    <rect width="24" height="24" fill="white"/>
+    </clipPath>
+    </defs>
+    </svg>
+    `
+
+    return (
+        <SvgXml xml={toggle ? xml2 : xml1} width={w} height={h} />
     )
 }

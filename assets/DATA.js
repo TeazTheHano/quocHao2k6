@@ -53,6 +53,7 @@ export default DATA = () => {
             majorCompany: "Giáo Dục",
             fullUnitCompany: "CÔNG TY TRÁCH NHIỆM HỮU HẠN MỘT THÀNH VIÊN NHÀ XUẤT BẢN GIÁO DỤC VIỆT NAM",
             addressCompany: "Hà Nội",
+            fullAddressCompany: 'Số 81 Trần Hưng Đạo - Hoàn Kiếm - Hà Nội',
             introCompany: "Nhà xuất bản Giáo dục Việt Nam (trước đây là Nhà xuất bản Giáo dục) trực thuộc Bộ Giáo dục và Đào tạo, được thành lập ngày 01 tháng 6 năm 1957. Nhà xuất bản Giáo dục Việt Nam có nhiệm vụ tổ chức biên soạn, biên tập, in, phát hành sách giáo khoa và các sản phẩm giáo dục phục vụ nghiên cứu, giảng dạy, học tập của các ngành học, bậc học; giúp Bộ Giáo dục và Đào tạo chỉ đạo công tác thiết bị giáo dục và thư viện trường học trên toàn quốc.",
             logoCompany: require('../assets/images/placeholder.jpg'),
             imageCompany: [
@@ -167,7 +168,7 @@ export default DATA = () => {
     let job = [
         {
             id: "j1",
-            companyId: "c1",
+            companyID: 'c1',
             nameJob: "Dịch thuật văn bản",
             imageCompany: require('../assets/images/placeholder.jpg'),
             nameCompany: "Nhà sách Giáo Dục",

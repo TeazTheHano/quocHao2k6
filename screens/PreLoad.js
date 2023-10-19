@@ -14,7 +14,7 @@ function PreLoad() {
     }, [fontsLoaded]);
 
     function navigateToHome() {
-        navigation.navigate('Tab');
+        navigation.navigate('LogReg');
     }
 
     if (!fontsLoaded) {
