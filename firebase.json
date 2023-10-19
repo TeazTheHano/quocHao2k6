@@ -1,12 +1,15 @@
 {
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
   "functions": [
     {
       "source": "functions",
-      "codebase": "default"
-    },
-    {
-      "source": "quochao2k6-203",
-      "codebase": "quochao2k6-203",
+      "codebase": "default",
       "ignore": [
         "node_modules",
         ".git",
@@ -18,11 +21,7 @@
       ]
     }
   ],
-  "database": {
-    "rules": "database.rules.json"
-  },
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
+  "storage": {
+    "rules": "storage.rules"
   }
 }

@@ -3,10 +3,10 @@ import { StyleSheet, Text, TextInput, View, Button, TouchableOpacity, SafeAreaVi
 import { useNavigation } from '@react-navigation/native';
 
 // Import firebase
-import { auth, firestore } from '../firebase'
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { auth, provider, firestore } from '../firebase';
+import { doc, setDoc, getDoc, getFirestore } from "firebase/firestore";
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { getAuth, createUserWithEmailAndPassword, } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 // Import the custom CSS
 import styles from '../assets/stylesheet';
@@ -31,6 +31,7 @@ function LogReg() {
     const [phone, setPhone] = React.useState('');
     const [disable, setDisable] = React.useState('');
     const [error, setError] = React.useState('');
+    const [isLoggingIn, setIsLoggingIn] = React.useState(false);
 
     // screen usestate
     const [isLoginScreen, setIsLoginScreen] = useState(true);
@@ -40,82 +41,166 @@ function LogReg() {
     const [isChecked, setIsChecked] = useState(false);
 
     // firebase auth
-    const auth = getAuth();
+    // const auth = getAuth();
+
+    // useEffect(() => {
+    //     const unsubscribe = auth.onAuthStateChanged((user) => {
+    //         // wait for login or register
+    //         if (user) {
+    //             navigation.navigate('Tab');
+    //         } else {
+    //             navigation.navigate('LogReg');
+    //         }
+    //     });
+    //     return unsubscribe;
+    // }, []);
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((user) => {
-            // wait for login or register
-            if (user) {
-                navigation.navigate('Tab');
-            } else {
-                navigation.navigate('LogReg');
+        const unsubscribe = auth.onAuthStateChanged((authUser) => {
+            if (authUser) {
+                const user = auth.currentUser;
+                const db = firestore;
+                const docRef = doc(db, "userList", user.uid);
+                getDoc(docRef).then((docSnap) => {
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        if (data.name) {
+                            navigation.navigate('Tab');
+                        } else {
+                            navigation.navigate('LogReg');
+                        }
+                    } else {
+                    }
+                });
             }
         });
         return unsubscribe;
     }, []);
 
-
-
     const signIn = () => {
-        console.log('vl dm login');
-        signInWithEmailAndPassword(auth, loginEmail, loginPassword)
-            .then((userCredential) => {
-
-                // Signed in
-                const user = userCredential.user;
-                const db = firestore;
-                const docRef = doc(db, "userList", user.uid);
-                getDoc(docRef).then((docSnap) => {
-                    if (docSnap.exists()) {
-                        navigation.navigate('Tab');
-                        console.log("Document data:", docSnap.data());
-                    } else {
-                        navigation.navigate('LogReg');
-                    }
-                });
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                setError(errorMessage);
-            });
+        if (isChecked) {
+            signInWithEmailAndPassword(auth, loginEmail, loginPassword)
+                .catch((error) => alert(error));
+        } else {
+            alert('Bạn chưa đồng ý với điều khoản của chúng tôi');
+        }
     }
 
     const register = () => {
-        // Create a user in Firebase Authentication
-        createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
-            .then((userCredential) => {
-                // Signed in
-                const user = userCredential.user;
+        if (isChecked) {
+            createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
+                .then((authUser) => {
+                    setDoc(doc(firestore, "userList", authUser.user.uid), {
+                        name: name,
+                        email: registerEmail,
+                        password: registerPassword,
+                        phone: phone,
+                        disable: [...disable.split(',')].map(item => item.trim()),
+                        type: "user",
+                    })
+                })
+                .catch((error) => alert(error));
+        } else {
+            alert('Bạn chưa đồng ý với điều khoản của chúng tôi');
+        }
+    }
 
-                // Access Firestore and set user data
-                const db = firestore;
-                console.log(user.uid);
-                setDoc(doc(db, "userList", user.uid), { // <-- Corrected syntax
-                    name: name,
-                    phone: phone,
-                    disable: disable,
-                    email: registerEmail,
-                    password: registerPassword,
-                    type: "user",
-                }).then(() => {
-                    // Successfully added user data to Firestore
-                    console.log("Document successfully written!");
-                    navigation.navigate('Tab');
-                }).catch((error) => {
-                    // Handle Firestore document set error
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    setError(errorMessage);
-                });
-            })
-            .catch((error) => {
-                // Handle Firebase Authentication error
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                setError(errorMessage);
-            });
-    };
+    // useEffect(() => {
+    //     const unsubscribe = auth.onAuthStateChanged(async (user) => {
+    //         if (user) {
+    //             // If the user is authenticated, wait for the login/register process to complete
+    //             try {
+    //                 if (isLoggingIn) {
+    //                     await signIn();
+    //                 } else {
+    //                     await register();
+    //                 }
+
+    //                 navigation.navigate('Tab');
+    //             } catch (error) {
+    //                 // Handle any errors that occurred during login or registration
+    //                 console.error('Error:', error);
+    //                 navigation.navigate('LogReg');
+    //             }
+    //         } else {
+    //             navigation.navigate('LogReg');
+    //         }
+    //     });
+
+    //     return unsubscribe;
+    // }, [isLoggingIn]); // Make sure to include isLoggingIn as a dependency
+
+    // const signIn = () => {
+    //     console.log(84);
+    //     signInWithEmailAndPassword(auth, loginEmail, loginPassword)
+    //         .then((userCredential) => {
+    //             console.log(87);
+    //             // Signed in
+    //             const user = userCredential.user;
+    //             const db = firestore;
+    //             const docRef = doc(db, "userList", user.uid);
+    //             getDoc(docRef).then((docSnap) => {
+    //                 console.log(93);
+    //                 if (docSnap.exists()) {
+    //                     navigation.navigate('Tab');
+    //                     console.log("Document data:", docSnap.data());
+    //                 } else {
+    //                     navigation.navigate('LogReg');
+    //                 }
+    //             }).then(() => {
+    //                 console.log(101);
+    //                 setIsLoggingIn(true);
+    //             }).catch((error) => {
+    //                 console.log("Error getting document:", error);
+    //             });
+    //         })
+    //         .catch((error) => {
+    //             const errorCode = error.code;
+    //             const errorMessage = error.message;
+    //             setError(errorMessage);
+    //         });
+    // }
+
+    // const register = () => {
+    //     // Create a user in Firebase Authentication
+    //     createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
+    //         .then((userCredential) => {
+    //             // Signed in
+    //             const user = userCredential.user;
+    //             console.log(120, + ' ' + user.uid);
+    //             // Access Firestore and set user data
+    //             const db = firestore;
+    //             console.log(user.uid);
+    //             setDoc(doc(db, "userList", user.uid), { // <-- Corrected syntax
+    //                 name: name,
+    //                 phone: phone,
+    //                 disable: disable,
+    //                 email: registerEmail,
+    //                 password: registerPassword,
+    //                 type: "user",
+    //             }).then(() => {
+    //                 // Successfully added user data to Firestore
+    //                 console.log("Document successfully written!");
+    //                 navigation.navigate('Tab');
+    //             }).catch((error) => {
+    //                 // Handle Firestore document set error
+    //                 const errorCode = error.code;
+    //                 const errorMessage = error.message;
+    //                 setError(errorMessage);
+    //             }).then(() => {
+    //                 console.log(141);
+    //                 setIsLoggingIn(true);
+    //             }).catch((error) => {
+    //                 console.log("Error getting document:", error);
+    //             });
+    //         })
+    //         .catch((error) => {
+    //             // Handle Firebase Authentication error
+    //             const errorCode = error.code;
+    //             const errorMessage = error.message;
+    //             setError(errorMessage);
+    //         });
+    // };
 
 
 
@@ -170,7 +255,7 @@ function LogReg() {
 
                     <TouchableOpacity
                         style={[componentStyle.submitBtn, { backgroundColor: colorStyle.blue1 }, { borderColor: colorStyle.blue1 }]}
-                        onPress={() => signIn()}
+                        onPress={() => { signIn() }}
                     >
                         <Text style={[componentStyle.submitBtnText, componentStyle.Mon18Bold, { color: colorStyle.tan1 }]}>Đăng nhập</Text>
                     </TouchableOpacity>
@@ -244,7 +329,7 @@ function LogReg() {
                     </View>
                     <TouchableOpacity
                         style={[componentStyle.submitBtn, { backgroundColor: colorStyle.blue1 }, { borderColor: colorStyle.blue1 }]}
-                        onPress={register()}
+                        onPress={register}
                     >
                         <Text style={[componentStyle.submitBtnText, componentStyle.Mon18Bold, { color: colorStyle.tan1 }]}>Đăng ký</Text>
                     </TouchableOpacity>

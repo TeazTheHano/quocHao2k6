@@ -1,50 +1,74 @@
+import { auth, firestore } from '../firebase'
+import { doc, setDoc, getDoc, collection, getDocs, updateDoc, where } from "firebase/firestore";
+import React from 'react';
 export default DATA = () => {
-    let currentUser = {
-        id: 'u1',
-        name: "Nguyễn Văn A",
-        dob: "01/01/2000",
-        sex: "Nam",
-        email: "blaaaaa@gmail.com",
-        phone: "0123456789",
-        address: "Hà Nội",
-        avatar: require('../assets/images/placeholder.jpg'),
-        intro: "Tôi là Nguyễn Văn A, tôi đến từ Hà Nội",
-        major: "IT",
-        exp: [
-            {
-                from: "01/01/2021",
-                to: "01/01/2021",
-                company: "Công ty TNHH ABC",
-            },
-            {
-                from: "01/01/2021",
-                to: "01/01/2021",
-                company: "Công ty TNHH ABC",
-            },
-            {
-                from: "01/01/2021",
-                to: "01/01/2021",
-                company: "Công ty TNHH ABC",
-            },
-        ],
-        disable: ["KT nghe",],
-        image: [
-            require('../assets/images/placeholder.jpg'),
-            require('../assets/images/placeholder.jpg'),
-            require('../assets/images/placeholder.jpg'),
-        ],
-        joinDate: "01/01/2021",
-        education: ['thpt', 'đại học'],
-        wishness: 'bla bla bla',
-        jobSave: ['j3', 'j7'],
-        skill: ['skill1', 'skill2', 'skill3'],
-        isAvailable: true,
-        letCompanyContact: true,
-        jobAttempt: ['j1', 'j2',],
-        followCompany: ['c1', 'c2',],
-        companyViewCount: 2,
+    // let currentUser = {
+    //     id: 'u1',
+    //     name: "Nguyễn Văn A",
+    //     dob: "01/01/2000",
+    //     sex: "Nam",
+    //     email: "blaaaaa@gmail.com",
+    //     phone: "0123456789",
+    //     address: "Hà Nội",
+    //     avatar: require('../assets/images/placeholder.jpg'),
+    //     intro: "Tôi là Nguyễn Văn A, tôi đến từ Hà Nội",
+    //     major: "IT",
+    //     exp: [
+    //         {
+    //             from: "01/01/2021",
+    //             to: "01/01/2021",
+    //             company: "Công ty TNHH ABC",
+    //         },
+    //         {
+    //             from: "01/01/2021",
+    //             to: "01/01/2021",
+    //             company: "Công ty TNHH ABC",
+    //         },
+    //         {
+    //             from: "01/01/2021",
+    //             to: "01/01/2021",
+    //             company: "Công ty TNHH ABC",
+    //         },
+    //     ],
+    //     disable: ["KT nghe",],
+    //     image: [
+    //         require('../assets/images/placeholder.jpg'),
+    //         require('../assets/images/placeholder.jpg'),
+    //         require('../assets/images/placeholder.jpg'),
+    //     ],
+    //     joinDate: "01/01/2021",
+    //     education: ['thpt', 'đại học'],
+    //     wishness: 'bla bla bla',
+    //     jobSave: ['j3', 'j7'],
+    //     skill: ['skill1', 'skill2', 'skill3'],
+    //     isAvailable: true,
+    //     letCompanyContact: true,
+    //     jobAttempt: ['j1', 'j2',],
+    //     followCompany: ['c1', 'c2',],
+    //     companyViewCount: 2,
 
-    }
+    // }
+    const [currentUser, setCurrentUser] = React.useState(null);
+    const fetchUserData = async () => {
+        try {
+            const user = auth.currentUser;
+
+            if (user) {
+                const db = firestore;
+                const docRef = doc(db, "userList", user.uid);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    console.log("Document data:", docSnap.data());
+                    setCurrentUser(docSnap.data());
+                }
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    };
+    // Call the function when you want to fetch user data
+    fetchUserData();
 
     let company = [
         {

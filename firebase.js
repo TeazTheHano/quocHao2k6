@@ -1,7 +1,10 @@
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { initializeAuth, getReactNativePersistence, } from 'firebase/auth';
+// import { getAnalytics } from "firebase/analytics";
+import { getAuth, signInWithPopup, GoogleAuthProvider, } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+
+import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -10,21 +13,22 @@ import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyD3mzxuFsLUTxt5OZ9JNjI02OEwA1yLA1I",
-    authDomain: "quochao2k6-203.firebaseapp.com",
-    databaseURL: "https://quochao2k6-203-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "quochao2k6-203",
-    storageBucket: "quochao2k6-203.appspot.com",
-    messagingSenderId: "359129948135",
-    appId: "1:359129948135:web:5132e55a065b6865ea6742",
-    measurementId: "G-6HB23N4V0M"
+    apiKey: "AIzaSyBqWc-QfEEocn8FaiEwDBcw30XDmcN0LZo",
+    authDomain: "app2k6-quochao.firebaseapp.com",
+    projectId: "app2k6-quochao",
+    storageBucket: "app2k6-quochao.appspot.com",
+    messagingSenderId: "157066528106",
+    appId: "1:157066528106:web:78c0e3c1d12fca6ceb1113",
+    measurementId: "G-VCQPFWP55J"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+// const analytics = getAnalytics(app);
 const auth = initializeAuth(app, {
     persistence: getReactNativePersistence(ReactNativeAsyncStorage),
 });
-const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
+const firestore = getFirestore();
 
-export { auth, db };
+export { auth, provider, firestore }

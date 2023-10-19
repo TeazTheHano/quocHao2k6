@@ -82,7 +82,10 @@ export const navTopBar = ([w, h], environmentColor, item, fnc) => {
 
 export const gradientRectangle = () => {
     const date = new Date();
-    const { currentUser } = DATA();
+    // const { currentUser } = DATA();
+    
+    console.log('86 ' + currentUser);
+
 
     return (
         <View style={[componentStyle.shadowW0H1B1S0]}>
