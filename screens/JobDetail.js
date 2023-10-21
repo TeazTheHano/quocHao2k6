@@ -14,10 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 function JobDetail({ route, navigation }) {
     const { item } = route.params;
     const { bookmarkStatus } = route.params;
-    console.log(item);
-    console.log(item.imageJob);
     const [isBookmarked, setIsBookmarked] = React.useState(false);
-    console.log(bookmark);
     const [isConfirmed, setIsConfirmed] = React.useState(false);
     const [isDone, setIsDone] = React.useState(false);
     return (

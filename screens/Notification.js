@@ -16,8 +16,6 @@ function Notification({ navigation }) {
     function getTimeDiff(notiTime) {
         const now = new Date();
         const notiDate = new Date(notiTime);
-        console.log(notiDate);
-        console.log(notiTime);
         const diff = now - notiDate;
         const seconds = Math.floor(diff / 1000);
         const minutes = Math.floor(seconds / 60);

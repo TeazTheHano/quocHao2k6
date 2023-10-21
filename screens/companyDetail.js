@@ -14,7 +14,6 @@ function CompanyDetail({ route, navigation }) {
     const { job } = DATA()
     const [isBell, setIsBell] = React.useState(false);
     const [isBookmarked, setIsBookmarked] = React.useState(false);
-    console.log(item);
     return (
         <SafeAreaView style={[styles.flex1, { backgroundColor: colorStyle.white }]}>
             <StatusBar backgroundColor="transparent" barStyle="dark-content" />

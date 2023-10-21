@@ -1,74 +1,135 @@
-import { auth, firestore } from '../firebase'
-import { doc, setDoc, getDoc, collection, getDocs, updateDoc, where } from "firebase/firestore";
-import React from 'react';
-export default DATA = () => {
-    // let currentUser = {
-    //     id: 'u1',
-    //     name: "Nguyễn Văn A",
-    //     dob: "01/01/2000",
-    //     sex: "Nam",
-    //     email: "blaaaaa@gmail.com",
-    //     phone: "0123456789",
-    //     address: "Hà Nội",
-    //     avatar: require('../assets/images/placeholder.jpg'),
-    //     intro: "Tôi là Nguyễn Văn A, tôi đến từ Hà Nội",
-    //     major: "IT",
-    //     exp: [
-    //         {
-    //             from: "01/01/2021",
-    //             to: "01/01/2021",
-    //             company: "Công ty TNHH ABC",
-    //         },
-    //         {
-    //             from: "01/01/2021",
-    //             to: "01/01/2021",
-    //             company: "Công ty TNHH ABC",
-    //         },
-    //         {
-    //             from: "01/01/2021",
-    //             to: "01/01/2021",
-    //             company: "Công ty TNHH ABC",
-    //         },
-    //     ],
-    //     disable: ["KT nghe",],
-    //     image: [
-    //         require('../assets/images/placeholder.jpg'),
-    //         require('../assets/images/placeholder.jpg'),
-    //         require('../assets/images/placeholder.jpg'),
-    //     ],
-    //     joinDate: "01/01/2021",
-    //     education: ['thpt', 'đại học'],
-    //     wishness: 'bla bla bla',
-    //     jobSave: ['j3', 'j7'],
-    //     skill: ['skill1', 'skill2', 'skill3'],
-    //     isAvailable: true,
-    //     letCompanyContact: true,
-    //     jobAttempt: ['j1', 'j2',],
-    //     followCompany: ['c1', 'c2',],
-    //     companyViewCount: 2,
+import { doc, getDoc } from "firebase/firestore";
+import React, { useState, useEffect } from 'react';
+import { auth, firestore } from '../firebase';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-    // }
-    const [currentUser, setCurrentUser] = React.useState(null);
-    const fetchUserData = async () => {
-        try {
-            const user = auth.currentUser;
+export const fetchUserData = async () => {
+    try {
+        const user = auth.currentUser;
 
-            if (user) {
-                const db = firestore;
-                const docRef = doc(db, "userList", user.uid);
-                const docSnap = await getDoc(docRef);
+        if (user) {
+            const db = firestore;
+            const docRef = doc(db, "userList", user.uid);
+            const docSnap = await getDoc(docRef);
 
-                if (docSnap.exists()) {
-                    console.log("Document data:", docSnap.data());
-                    setCurrentUser(docSnap.data());
+            if (docSnap.exists()) {
+                // Save data to AsyncStorage
+                try {
+                    await AsyncStorage.setItem('userData', JSON.stringify(docSnap.data()));
+                    return docSnap.data();
+                } catch (error) {
+                    console.error('JSON string is invalid:', error.message);
                 }
             }
-        } catch (e) {
-            console.log(e);
+        } else {
+            console.log("No user is currently signed in.");
         }
-    };
-    // Call the function when you want to fetch user data
-    fetchUserData();
+    } catch (error) {
+        console.error("Error fetching document:", error);
+    }
+    return null;
+};
+fetchUserData();
+
+function isValidJson(jsonString) {
+    try {
+        JSON.parse(jsonString);
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
+
+export const completeURIforImage = (imageURI) => {
+    if (imageURI === null || imageURI === undefined || imageURI === '') {
+        return require('../assets/images/placeholder.jpg');
+    } else {
+        return { uri: `${imageURI}` };
+    }
+}
+
+/**
+ * 
+ * @param {string} keyname : tên key của AsyncStorage
+ * @returns : lấy dữ liệu từ AsyncStorage
+ */
+export const retrieveData = async (keyname) => {
+    try {
+        const value = await AsyncStorage.getItem(keyname);
+        if (value !== null) {
+            if (isValidJson(value)) {
+                console.log(`Retrieved data for keyname ${keyname}:`, value);
+                return JSON.parse(value);
+            } else {
+                console.error(`retrieveData() Invalid JSON string for keyname ${keyname}:`, value);
+            }
+        } else {
+            console.log(`Data not found for keyname ${keyname}.`);
+        }
+    } catch (error) {
+        console.error('retrieveData() Error retrieving data:', error);
+    }
+}
+
+export default DATA = () => {
+    const placeholderUserData = {
+        id: 'u1',
+        name: "Nguyễn Văn A",
+        dob: "01/01/2000",
+        sex: "Nam",
+        email: "blaaaaa@gmail.com",
+        phone: "0123456789",
+        address: "Hà Nội",
+        avatar: require('../assets/images/placeholder.jpg'),
+        intro: "Tôi là Nguyễn Văn A, tôi đến từ Hà Nội",
+        major: "IT",
+        exp: [
+            {
+                from: "01/01/2021",
+                to: "01/01/2021",
+                company: "Công ty TNHH ABC",
+            },
+            {
+                from: "01/01/2021",
+                to: "01/01/2021",
+                company: "Công ty TNHH ABC",
+            },
+            {
+                from: "01/01/2021",
+                to: "01/01/2021",
+                company: "Công ty TNHH ABC",
+            },
+        ],
+        disable: ["KT nghe",],
+        image: [
+            require('../assets/images/placeholder.jpg'),
+            require('../assets/images/placeholder.jpg'),
+            require('../assets/images/placeholder.jpg'),
+        ],
+        joinDate: "01/01/2021",
+        education: ['thpt', 'đại học'],
+        wishness: 'bla bla bla',
+        jobSave: ['j3', 'j7'],
+        skill: ['skill1', 'skill2', 'skill3'],
+        isAvailable: true,
+        letCompanyContact: true,
+        jobAttempt: ['j1', 'j2',],
+        followCompany: ['c1', 'c2',],
+        companyViewCount: 2,
+    }
+    const [currentUser, setCurrentUser] = React.useState(placeholderUserData);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await retrieveData('userData');
+                setCurrentUser(data);
+            } catch (error) {
+                console.error("Error retriveing data:", error);
+            }
+
+        };
+        fetchData();
+    }, []);
 
     let company = [
         {
@@ -468,28 +529,28 @@ export default DATA = () => {
             companyID: 'c1',
             notiType: 'viewed',
             notiTime: '2023-10-14T20:10:00+07:00',
-            forUser: 'u1',
+            forUser: currentUser.id,
         },
         {
             notiID: 'n2',
             companyID: 'c4',
             notiType: 'rated',
             notiTime: '2023-10-16T15:22:30+07:00',
-            forUser: 'u1',
+            forUser: currentUser.id,
         },
         {
             notiID: 'n2',
             companyID: 'c1',
             notiType: 'rated',
             notiTime: '2023-10-16T15:22:30+07:00',
-            forUser: 'u1',
+            forUser: currentUser.id,
         },
         {
             notiID: 'n2',
             companyID: 'c2',
             notiType: 'rated',
             notiTime: '2023-10-16T15:22:30+07:00',
-            forUser: 'u1',
+            forUser: currentUser.id,
         }
     ]
     return { company, job, currentUser, notiData }

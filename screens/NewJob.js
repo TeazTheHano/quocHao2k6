@@ -109,7 +109,6 @@ function NewJob({ navigation }) {
             });
         }
 
-        console.log(jobAfterFilter);
         return jobAfterFilter;
     }
 
@@ -212,7 +211,6 @@ function NewJob({ navigation }) {
 
     function result(params) {
         let jobAfterFilter = filterData();
-        console.log(jobAfterFilter);
         const Item = ({ item }) => {
             const [isBookmarked, setIsBookmarked] = useState(false);
 

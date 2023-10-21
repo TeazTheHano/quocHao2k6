@@ -7,7 +7,7 @@ import Svg, { SvgXml } from 'react-native-svg';
 import { searchIcon, infoIcon, leftArrow, shareIcon, heartDouble, bookmark, } from "./svgXml";
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from "expo-linear-gradient";
-import DATA from '../assets/DATA.js';
+import DATA, { retrieveData } from '../assets/DATA.js';
 import { useNavigatio, NavigationContainer } from '@react-navigation/native';
 
 export const searchNav = (header, environmentColor, toggleModal) => {
@@ -82,10 +82,7 @@ export const navTopBar = ([w, h], environmentColor, item, fnc) => {
 
 export const gradientRectangle = () => {
     const date = new Date();
-    // const { currentUser } = DATA();
-    
-    console.log('86 ' + currentUser);
-
+    const { currentUser } = DATA();
 
     return (
         <View style={[componentStyle.shadowW0H1B1S0]}>
@@ -323,9 +320,16 @@ export const suitableJob = () => {
                     <Text style={[componentStyle.Mon12Bold]}>{!isPressedAll ? `Xem tất cả` : `Thu gọn`}</Text>
                 </TouchableOpacity>
             </View>
-            {job.filter(item => item.acceptDisable.some(val => currentUserDisable.indexOf(val) !== -1)).slice(0, numberToRender).map((item, index) => (
-                <Item key={index} item={item} />
-            ))}
+            {
+                currentUserDisable ?
+                    job.filter(item => item.acceptDisable.some(val => currentUserDisable.indexOf() !== -1)).slice(0, numberToRender).map((item, index) => (
+                        <Item key={index} item={item} />
+                    ))
+                    :
+                    job.slice(0, numberToRender).map((item, index) => (
+                        <Item key={index} item={item} />
+                    ))
+            }
             <TouchableOpacity
                 onPress={() => {
                     if (numberToRender < job.length) {

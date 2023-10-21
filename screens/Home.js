@@ -13,7 +13,7 @@ function Home({ navigation }) {
 
     return (
         <SafeAreaView style={[styles.flex1, { backgroundColor: colorStyle.white }]}>
-            <StatusBar backgroundColor="transparent" barStyle="dark-content" />
+            <StatusBar backgroundColor="transparent" barStyle="dark-content"   />
             <LinearGradient
                 colors={['#E2EAFF', '#FFE7AB']}
                 start={{ x: 0, y: 0 }}
