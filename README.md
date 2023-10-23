@@ -11,6 +11,8 @@ Nhớ thay tên ứng dụng tại dòng 298, trong screens/LogReg.js
 ### 2. Tải về máy:
     - Tại trang của Repo này, chọn nút xanh lá " <> Code " và chọn "Download ZIP"
     - Giải nén file vừa tải về
+    - Kiểm tra xem có thư mục ẩn là .git trong mục vừa giải nén không, nếu có thì xoá đi
+    - Xoá file README.md nếu có
     - Mở Terminal (MacOS) hoặc Command Prompt (Windows) và trỏ đến thư mục vừa giải nén
     - Chạy lệnh `npm install` để cài đặt các thư viện cần thiết
 
