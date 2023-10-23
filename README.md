@@ -3,7 +3,7 @@ Nhớ thay tên ứng dụng tại dòng 298, trong screens/LogReg.js
 
 
 ### 1. Cài đặt môi trường
- - Yêu cầu hệ thống: Cài đặt NodeJS, npm mới nhất
+ - Yêu cầu hệ thống: Cài đặt NodeJS, npm, git mới nhất
  - Cách kiểm tra phiên bản hiện tại nếu đã cài đặt:
     - NodeJS: `node -v`
     - npm: `npm -v`
@@ -29,3 +29,11 @@ Nhớ thay tên ứng dụng tại dòng 298, trong screens/LogReg.js
     - Các Warn, cảnh báo màu vàng xuất hiện để thông báo những vấn đề thông thường của hệ thống, về tính tương thích hoặc khả năng hỗ trợ, không cần lo ngại và có thể tắt chúng đi
     - Các Error, cảnh báo màu đỏ nói về lỗi trong việc xử lý thông tin. Ghi lại và báo cáo cho nhóm phát triển để khắc phục.
     - Trường hợp cần khởi động lại ứng dụng, có thể nhấn phím R trên cửa sổ terminal hoặc lắc điện thoại và chọn Reload App
+
+### 6. Cách update lên Repo Github của bản thân
+    - Nếu chưa có repo thì tạo mới, điền tên của repo.
+    - Trong màn hình IDE, tạo cửa sổ terminal mới của Project, dán và chạy code của mục "…or create a new repository on the command line" trên màn hình Repo
+    - Chạy các dòng sau đây:
+    - git add .
+    - git commit -m "NỘI_DUNG_THÔNG_ĐIỆP"
+    - git push
