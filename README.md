@@ -1,4 +1,6 @@
 ## Set-up phần mềm
+Nhớ thay tên ứng dụng tại dòng 298, trong screens/LogReg.js
+
 
 ### 1. Cài đặt môi trường
  - Yêu cầu hệ thống: Cài đặt NodeJS, npm mới nhất
