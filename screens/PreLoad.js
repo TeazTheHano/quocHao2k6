@@ -6,7 +6,7 @@ import { fetchUserData } from "../assets/DATA";
 function PreLoad() {
     let [fontsLoaded] = useCustomFonts();
     const navigation = useNavigation();
-    console.log(fetchUserData());
+
     useEffect(() => {
         if (fontsLoaded) {
             navigateToHome();
@@ -14,6 +14,7 @@ function PreLoad() {
     }, [fontsLoaded]);
 
     function navigateToHome() {
+        fetchUserData()
         navigation.navigate('LogReg');
     }
 
