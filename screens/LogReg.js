@@ -57,34 +57,27 @@ function LogReg() {
     // }, []);
 
     useEffect(() => {
-        const checkUserAndNavigate = async () => {
-            const authUser = await new Promise((resolve) => {
-                const unsubscribe = auth.onAuthStateChanged((user) => {
-                    resolve(user);
-                    unsubscribe(); // Ensure the listener is unsubscribed
-                });
-            });
-
+        const unsubscribe = auth.onAuthStateChanged((authUser) => {
             if (authUser) {
                 const user = auth.currentUser;
                 const db = firestore;
                 const docRef = doc(db, "userList", user.uid);
-                const docSnap = await getDoc(docRef);
-
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    console.log(67, data);
-                    if (data.name) {
-                        await AsyncStorage.setItem('userData', JSON.stringify(data));
-                        navigation.navigate('Tab');
+                getDoc(docRef).then((docSnap) => {
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        console.log(67, data);
+                        if (data.name) {
+                            AsyncStorage.setItem('userData', JSON.stringify(data));
+                            navigation.navigate('Tab');
+                        } else {
+                            navigation.navigate('LogReg');
+                        }
                     } else {
-                        navigation.navigate('LogReg');
                     }
-                }
+                });
             }
-        };
-
-        checkUserAndNavigate();
+        });
+        return unsubscribe;
     }, []);
 
     const signIn = () => {
