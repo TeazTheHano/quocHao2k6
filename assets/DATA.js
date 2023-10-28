@@ -529,28 +529,28 @@ export default DATA = () => {
             companyID: 'c1',
             notiType: 'viewed',
             notiTime: '2023-10-14T20:10:00+07:00',
-            forUser: currentUser.id,
+            forUser: 'currentUser.id',
         },
         {
             notiID: 'n2',
             companyID: 'c4',
             notiType: 'rated',
             notiTime: '2023-10-16T15:22:30+07:00',
-            forUser: currentUser.id,
+            forUser: 'currentUser.id',
         },
         {
             notiID: 'n2',
             companyID: 'c1',
             notiType: 'rated',
             notiTime: '2023-10-16T15:22:30+07:00',
-            forUser: currentUser.id,
+            forUser: 'currentUser.id',
         },
         {
             notiID: 'n2',
             companyID: 'c2',
             notiType: 'rated',
             notiTime: '2023-10-16T15:22:30+07:00',
-            forUser: currentUser.id,
+            forUser: 'currentUser.id',
         }
     ]
     return { company, job, currentUser, notiData }
