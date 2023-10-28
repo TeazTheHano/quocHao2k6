@@ -17,6 +17,7 @@ import Svg, { SvgUri, SvgXml } from 'react-native-svg';
 
 // Import API
 import Checkbox from 'expo-checkbox';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // 
 function LogReg() {
@@ -56,25 +57,34 @@ function LogReg() {
     // }, []);
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((authUser) => {
+        const checkUserAndNavigate = async () => {
+            const authUser = await new Promise((resolve) => {
+                const unsubscribe = auth.onAuthStateChanged((user) => {
+                    resolve(user);
+                    unsubscribe(); // Ensure the listener is unsubscribed
+                });
+            });
+
             if (authUser) {
                 const user = auth.currentUser;
                 const db = firestore;
                 const docRef = doc(db, "userList", user.uid);
-                getDoc(docRef).then((docSnap) => {
-                    if (docSnap.exists()) {
-                        const data = docSnap.data();
-                        if (data.name) {
-                            navigation.navigate('Tab');
-                        } else {
-                            navigation.navigate('LogReg');
-                        }
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    console.log(67, data);
+                    if (data.name) {
+                        await AsyncStorage.setItem('userData', JSON.stringify(data));
+                        navigation.navigate('Tab');
                     } else {
+                        navigation.navigate('LogReg');
                     }
-                });
+                }
             }
-        });
-        return unsubscribe;
+        };
+
+        checkUserAndNavigate();
     }, []);
 
     const signIn = () => {

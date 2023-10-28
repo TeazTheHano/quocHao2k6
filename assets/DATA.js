@@ -29,7 +29,7 @@ export const fetchUserData = async () => {
     }
     return null;
 };
-fetchUserData();
+// fetchUserData();
 
 function isValidJson(jsonString) {
     try {

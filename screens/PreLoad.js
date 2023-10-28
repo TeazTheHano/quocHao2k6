@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ImageBackground, Image } from "react-native";
 import { useCustomFonts } from "../assets/componentStyleSheet";
 import { useNavigation } from '@react-navigation/native';
 import { fetchUserData } from "../assets/DATA"; 
+import AsyncStorage from "@react-native-async-storage/async-storage";
 function PreLoad() {
     let [fontsLoaded] = useCustomFonts();
     const navigation = useNavigation();
@@ -14,7 +15,10 @@ function PreLoad() {
     }, [fontsLoaded]);
 
     function navigateToHome() {
-        fetchUserData()
+        if (AsyncStorage.getItem('userData')) {
+            AsyncStorage.clear();
+            console.log('All data cleared successfully.');
+        }
         navigation.navigate('LogReg');
     }
 
